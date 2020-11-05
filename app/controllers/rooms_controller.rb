@@ -1,7 +1,7 @@
 class RoomsController < ApplicationController
   before_action :current_user
 
-  include Pagenation
+  include Pagination
 
   def index
     @rooms = Room.all.page(params[:page]).per(10)
