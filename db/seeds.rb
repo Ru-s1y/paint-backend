@@ -5,3 +5,29 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+3.times do |n|
+  User.create!(
+    username: "testUser#{n+1}",
+    email: "test#{n+1}@example.com",
+    password: "password",
+    password_confirmation: "password"
+  )
+end
+
+3.times do |i|
+  Chatroom.create!(
+    name: "room#{i+1}",
+    description: "published",
+    published: "true"
+    user_id: "#{i+1}"
+  )
+end
+
+# 3.times do |m|
+#   Chatpost.create!(
+#     user_id: "#{m+1}",
+#     chatroom_id: "#{m+1}",
+#     description: "Hello, testUser_#{m+1}"
+#   )
+# end
