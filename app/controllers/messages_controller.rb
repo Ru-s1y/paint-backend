@@ -14,9 +14,9 @@ class MessagesController < ApplicationController
 
   def create
     @message = Message.create!(
-      message: params[:message],
-      room_id: current_room.id,
-      user_id: current_room.id
+      message: message_params[:message],
+      room_id: message_params[:room_id],
+      user_id: current_user.id
     )
     if @message
       render json: {
@@ -33,4 +33,9 @@ class MessagesController < ApplicationController
     @message.destroy
     render json: @message
   end
+
+  private
+    def message_params
+      params.require(:message).permit(:room_id, :message)
+    end
 end
