@@ -9,11 +9,8 @@ class RoomsSessionsController < ApplicationController
 
     if @room && @room.authenticate(room_session_params[:password])
       session[:room_id] = @room.id
-      render json: {
-        status: :created,
-        room_logged_in: true,
-        room: @room # password抜きで返したい。
-      }
+      @user = User.find(@room.user_id)
+      render 'login.json.jbuilder'
     else
       render json: { status: 401 }
     end

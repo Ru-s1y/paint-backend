@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
     # @messages = Message.where(room_id: current_room.id)
     @messages = Message.where(room_id: params[:room_id])
     if @messages
-      render json: @messages
+      render json: @messages.to_json(:include => {:user => {:only => :name}})
     else
       render json: { status: 200, warning: 'Message is not exist!' }
     end

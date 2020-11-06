@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   # ルーム関連
   get :rooms, to: "rooms#index"
+  get :rooms_search, to: "rooms#search"
   resources :rooms_registrations, only: [:create]
   post :room_login, to: "rooms_sessions#login"
   delete :room_logout, to: "rooms_sessions#logout"
