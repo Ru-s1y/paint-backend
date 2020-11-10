@@ -1,1 +1,3 @@
-https://ru-s1y-pic-sv.s3.ap-northeast-1.amazonaws.com/uploader/testUser1/b879112eb46aaef6f9a200fd9fe2bc23dbec3551.png
+# お絵かきアプリ(バックエンド)
+フロントはReact(別リポジトリ)
+画像はAWS-S3にアップロード
