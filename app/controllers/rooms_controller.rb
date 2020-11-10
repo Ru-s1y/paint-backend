@@ -7,7 +7,6 @@ class RoomsController < ApplicationController
     @rooms = Room.all.page(params[:page]).per(10)
     @pagination = resources_with_pagination(@rooms)
     render 'index.json.jbuilder'
-    # render json: rooms: @rooms.to_json(except: [:password_digest], include: {user: {only: :name}})
   end
 
   def search

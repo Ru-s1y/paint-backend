@@ -16,4 +16,9 @@ Rails.application.routes.draw do
 
   # メッセージ関連
   resources :messages, only: [:index, :create, :destroy]
+
+  # paint関連
+  resources :albums
+  get :my_albums, to: "albums#myindex"
+  resources :pictures
 end

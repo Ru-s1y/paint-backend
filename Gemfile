@@ -36,7 +36,11 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'rack-cors', '~> 1.1', '>= 1.1.1'
 gem 'kaminari', '~> 1.2', '>= 1.2.1'
 gem 'ransack', '~> 1.7'
-
+gem 'aws-sdk', '~> 3.0', '>= 3.0.1'
+# gem 'carrierwave'
+gem 'rmagick'
+gem 'fog-aws'
+gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
