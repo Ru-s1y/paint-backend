@@ -21,4 +21,6 @@ Rails.application.routes.draw do
   resources :albums
   get :my_albums, to: "albums#myindex"
   resources :pictures
+  get :my_pictures, to: "pictures#myindex"
+  get :album_pictures, to: "pictures#album_index"
 end

@@ -3,8 +3,18 @@ class PicturesController < ApplicationController
   before_action :set_picture, only: [:show, :destroy, :update]
 
   def index
-    # @pictures = Picture.where(publish: true)
-    @pictures = Picture.all
+    @pictures = Picture.where(publish: true)
+    # @pictures = Picture.all
+    render json: @pictures
+  end
+
+  def myindex
+    @pictures = Picture.where(user_id: current_user.id)
+    render json: @pictures
+  end
+
+  def album_index
+    @pictures = Picture.where(album_id: params[:album_id])
     render json: @pictures
   end
 
