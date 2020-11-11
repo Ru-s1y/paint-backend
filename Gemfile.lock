@@ -1064,6 +1064,7 @@ GEM
     jbuilder (2.10.1)
       activesupport (>= 5.0.0)
     jmespath (1.4.0)
+    jwt (2.2.2)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.1)
@@ -1212,6 +1213,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.7, >= 2.7.6)
   fog-aws
   jbuilder (~> 2.5)
+  jwt
   kaminari (~> 1.2, >= 1.2.1)
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)

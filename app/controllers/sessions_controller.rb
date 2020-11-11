@@ -1,18 +1,23 @@
 class SessionsController < ApplicationController
+  include JwtAuthenticator
+
   before_action :current_user
 
   def login
     @user = User.find_by(email: session_params[:email])
 
-    if @user && @user.authenticate(session_params[:password])
+    if @user&.authenticate(session_params[:password])
       session[:user_id] = @user.id
+      jwt_token = encode(@user.id)
+      response.headers['X-Authentication-Token'] = jwt_token
       render json: {
         status: :created,
         logged_in: true,
         user: @user
       }
     else
-      render json: { status: 401 }
+      raise UnableAuthorizationError.new("ログインに失敗しました。")
+      # render json: { status: 401 }
     end
   end
 

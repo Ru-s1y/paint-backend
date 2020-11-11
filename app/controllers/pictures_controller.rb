@@ -1,6 +1,7 @@
 class PicturesController < ApplicationController
   before_action :current_user
   before_action :set_picture, only: [:show, :destroy, :update]
+  # before_action :jwt_authenticate
 
   def index
     @pictures = Picture.where(publish: true)

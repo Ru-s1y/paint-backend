@@ -1,15 +1,24 @@
 class AlbumsController < ApplicationController
   before_action :current_user
   before_action :set_album, only: [:show, :destroy, :update]
+  # before_action :jwt_authenticate
 
   def index
     @albums = Album.where(publish: true)
-    render 'index.json.jbuilder'
+    if @albums
+      render 'index.json.jbuilder'
+    else
+      render json: @albums.error
+    end
   end
 
   def myindex
-    @albums = Album.where(user_id: current_user.id)
-    render 'index.json.jbuilder'
+    @albums = Album.where(user_id: params[:user_id])
+    if @albums
+      render 'index.json.jbuilder'
+    else
+      render json: @albums.error
+    end
   end
 
   def show
