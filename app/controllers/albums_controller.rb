@@ -13,7 +13,7 @@ class AlbumsController < ApplicationController
   end
 
   def myindex
-    @albums = Album.where(user_id: params[:user_id])
+    @albums = Album.where(user_id: current_user)
     if @albums
       render 'index.json.jbuilder'
     else

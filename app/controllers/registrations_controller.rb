@@ -1,4 +1,6 @@
 class RegistrationsController < ApplicationController
+  # include JwtAuthenticator
+
   def create
     user = User.create!(
       username: params['user']['username'],
@@ -9,6 +11,8 @@ class RegistrationsController < ApplicationController
 
     if user
       session[:user_id] = user.id
+      # jwt_token = encode(@user.id)
+      # response.headers['X-Authentication-Token'] = jwt_token
       render json: {
         status: :created,
         user: user
