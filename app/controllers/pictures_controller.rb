@@ -1,7 +1,7 @@
 class PicturesController < ApplicationController
-  before_action :current_user
+  # before_action :current_user
   before_action :set_picture, only: [:show, :destroy, :update]
-  # before_action :jwt_authenticate
+  before_action :authenticate_user
 
   def index
     @pictures = Picture.where(publish: true)
@@ -51,7 +51,7 @@ class PicturesController < ApplicationController
 
   def destroy
     @picture.destroy
-    render :@picture
+    render json: @picture
   end
 
   def update
@@ -59,7 +59,11 @@ class PicturesController < ApplicationController
 
   private
     def set_picture
-      @picture = Picture.find(id: params[:id])
+      @picture = Picture.find(params[:id])
+    end
+
+    def picture_params
+      params.require(:pictures).permit(:title, :description, :album_id, :publish, :pagenumber)
     end
 
     def decode(uri)

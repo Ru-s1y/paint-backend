@@ -24,18 +24,7 @@ class UserTokenController < ApplicationController
   end
 
   # tokenがある時
-  # 送られてきたトークンとCookieに保存したTokenを比べる
   def logged_in
-    # jwt_token = cookies[:access_token]
-    # header = request.headers['Authorization']&.split&.last
-
-    # if header == "Bearer"
-    #   render json: {
-    #     logged_in: false,
-    #     message: 'header empty'
-    #   }
-    # else
-    # end
     if !authenticate_user
       render json: {
         logged_in: false,

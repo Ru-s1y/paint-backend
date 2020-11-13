@@ -1,7 +1,7 @@
 class AlbumsController < ApplicationController
-  before_action :current_user
+  # before_action :current_user
   before_action :set_album, only: [:show, :destroy, :update]
-  # before_action :jwt_authenticate
+  before_action :authenticate_user
 
   def index
     @albums = Album.where(publish: true)
@@ -13,7 +13,7 @@ class AlbumsController < ApplicationController
   end
 
   def myindex
-    @albums = Album.where(user_id: current_user)
+    @albums = Album.where(user_id: current_user.id)
     if @albums
       render 'index.json.jbuilder'
     else
@@ -21,9 +21,9 @@ class AlbumsController < ApplicationController
     end
   end
 
-  def show
-    reder json: @album
-  end
+  # def show
+  #   reder json: @album
+  # end
 
   def create
     @album = Album.create(
@@ -40,8 +40,13 @@ class AlbumsController < ApplicationController
   end
 
   def destroy
+    @pictures = Picture.where(album_id: params[:id])
+    @pictures.destroy
     @album.destroy
-    render json: @destroy
+    render json: {
+      album: @album,
+      pictures: @pictures
+    }
   end
 
   def update
@@ -54,10 +59,10 @@ class AlbumsController < ApplicationController
 
   private
     def set_album
-      @album = Album.find(id: params[:id])
+      @album = Album.find(params[:id])
     end
 
     def album_params
-      params.require(:abum).permit(:title, :description, :publish)
+      params.require(:album).permit(:title, :description, :publish)
     end
 end
