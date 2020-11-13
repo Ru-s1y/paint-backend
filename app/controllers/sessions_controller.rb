@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       render json: {
         status: :created,
         logged_in: true,
-        user: @user
+        user: @user.my_json
       }
     else
       # raise UnableAuthorizationError.new("ログインに失敗しました。")

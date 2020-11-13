@@ -1,5 +1,6 @@
 require 'jwt'
 
+# JWTの発行とデコードを行う
 module UserAuth
   class AuthToken
 
@@ -8,6 +9,7 @@ module UserAuth
     attr_reader :payload
     attr_reader :lifetime
 
+    # トークンの確認
     # lifetime トークンの有効期限, payload トークンに埋め込む情報(ハッシュ), token トークン, options 追加オプション
     def initialize(lifetime: nil, payload: {}, token: nil, options: {})
       if token.present?
@@ -18,6 +20,11 @@ module UserAuth
         @payload = claims.merge(payload)
         @token = JWT.encode(@payload, secret_key, algorithm, header_fields)
       end
+    end
+
+    # subjectからユーザーを検索する
+    def entity_for_user
+      User.find @payload["sub"]
     end
 
     private
