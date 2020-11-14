@@ -63,7 +63,7 @@ class PicturesController < ApplicationController
     end
 
     def picture_params
-      params.require(:pictures).permit(:title, :description, :album_id, :publish, :pagenumber)
+      params.require(:pictures).permit(:title, :description, :album_id, :publish, :pagenumber, :image, :image_path)
     end
 
     def decode(uri)
