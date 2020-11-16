@@ -40,8 +40,11 @@ class AlbumsController < ApplicationController
   end
 
   def destroy
-    @pictures = Picture.where(album_id: params[:id])
-    @pictures.destroy
+    @pictures = Picture.where(album_id: @album.id)
+    if @pictures.present?
+      @pictures.destroy_all
+    end
+
     @album.destroy
     render json: {
       album: @album,
@@ -63,6 +66,6 @@ class AlbumsController < ApplicationController
     end
 
     def album_params
-      params.require(:album).permit(:title, :description, :publish)
+      params.require(:album).permit(:id, :title, :description, :publish)
     end
 end

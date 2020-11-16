@@ -31,10 +31,19 @@ class UserTokenController < ApplicationController
         message: 'user empty'
       }
     else
-      render json: {
-        logged_in: true,
-        user: current_user.my_json
-      }
+      if current_user.guest
+        render json: {
+          logged_in: true,
+          guest: true,
+          user: current_user.my_json
+        }
+      else
+        render json: {
+          logged_in: true,
+          guest: false,
+          user: current_user.my_json
+        }
+      end
     end
     
     # if header == jwt_token

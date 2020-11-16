@@ -1,1 +1,1 @@
-json.array! @albums, :id, :title, :description, :user_id
+json.array! @albums, :id, :title, :description, :publish, :user_id

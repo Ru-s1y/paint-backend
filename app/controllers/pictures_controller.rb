@@ -15,13 +15,18 @@ class PicturesController < ApplicationController
   end
 
   def album_index
+    @pictures = Picture.where(album_id: params[:album_id], publish: true)
+    render json: @pictures
+  end
+
+  def album_myindex
     @pictures = Picture.where(album_id: params[:album_id])
     render json: @pictures
   end
 
-  def show
-    render json: @picture
-  end
+  # def show
+  #   render json: @picture
+  # end
 
   def create
     image = params['picture']['image']
@@ -55,6 +60,11 @@ class PicturesController < ApplicationController
   end
 
   def update
+    if @picture.update(picture_update_params)
+      render json: @picture
+    else
+      render json: @picture.error
+    end
   end
 
   private
@@ -63,7 +73,11 @@ class PicturesController < ApplicationController
     end
 
     def picture_params
-      params.require(:pictures).permit(:title, :description, :album_id, :publish, :pagenumber, :image, :image_path)
+      params.require(:picture).permit(:title, :description, :album_id, :publish, :pagenumber, :image, :image_path)
+    end
+
+    def picture_update_params
+      params.require(:picture).permit(:title, :description, :album_id, :publish, :pagenumber)
     end
 
     def decode(uri)

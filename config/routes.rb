@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get :logged_in, to: "user_token#logged_in"
   post :login, to: "user_token#create"
   delete :logout, to: "user_token#destroy"
+  post :guests, to: "guests#create"
   # resources :user_token, only: [:create] do
   #   delete :destroy, on: :collection
   # end
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
   resources :pictures
   get :my_pictures, to: "pictures#myindex"
   get :album_pictures, to: "pictures#album_index"
+  get :album_mypictures, to: "pictures#album_myindex"
   
     # ルーム関連
     # get :rooms, to: "rooms#index"
