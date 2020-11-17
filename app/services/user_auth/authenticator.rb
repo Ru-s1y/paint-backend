@@ -45,6 +45,9 @@ module UserAuth
       def unauthorized_user
         head(:unauthorized) && delete_cookie
       end
+      # def unauthorized_user
+      #   head(:unauthorized) && delete_cookie
+      # end
 
   end
 end

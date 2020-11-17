@@ -28,13 +28,28 @@ module Api
       
         # tokenがある時
         def logged_in
-          if !authenticate_user
-            render json: {
-              logged_in: false,
-              message: 'user empty'
-            }
+          # unless authenticate_user
+          #   render json: { logged_in: false }
+          # end
+          # if current_user.guest
+          #   render json: {
+          #     logged_in: true,
+          #     guest: true,
+          #     user: current_user.my_json
+          #   }
+          #   return
+          # else
+          #   render json: {
+          #     logged_in: true,
+          #     guest: false,
+          #     user: current_user.my_json
+          #   }
+          #   return
+          # end
+          if !current_user
+            render json: {logged_in: false}
           else
-            if current_user.guest
+            if current_user.guest == true
               render json: {
                 logged_in: true,
                 guest: true,
@@ -48,10 +63,6 @@ module Api
               }
             end
           end
-          
-          # if header == jwt_token
-          # end
-      
         end
       
         private
