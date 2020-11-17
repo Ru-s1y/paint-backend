@@ -1,1 +1,0 @@
-json.array! @pictures, :id, :title, :description, :image_path
