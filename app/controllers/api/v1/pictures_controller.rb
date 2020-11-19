@@ -5,29 +5,41 @@ module Api
       before_action :set_picture, only: [:show, :destroy, :update]
       before_action :authenticate_user
     
+      # ピクチャー一覧取得
       def index
-        @pictures = Picture.where(publish: true)
+        @pictures = Picture.where(publish: true).order(updated_at: :ASC)
         # @pictures = Picture.all
         # render json: @pictures
         render 'index.json.jbuilder'
       end
     
+      # 自分のピクチャー取得
       def myindex
-        @pictures = Picture.where(user_id: current_user.id)
+        @pictures = Picture.where(user_id: current_user.id).order(pagenumber: :ASC)
         # render json: @pictures
         render 'index.json.jbuilder'
       end
     
+      # 
       def album_index
-        @pictures = Picture.where(album_id: params[:album_id], publish: true)
+        @pictures = Picture.where(album_id: params[:album_id], publish: true).order(pagenumber: :ASC)
         # render json: @pictures
         render 'index.json.jbuilder'
       end
     
       def album_myindex
-        @pictures = Picture.where(album_id: params[:album_id])
+        @pictures = Picture.where(album_id: params[:album_id]).order(pagenumber: :ASC)
         # render json: @pictures
         render 'index.json.jbuilder'
+      end
+
+      def search_pictures
+        @pictures = Picture.search(params[:search])
+        if @pictures
+          render 'index.json.jbuilder'
+        else
+          render json: { message: 'not found' }
+        end
       end
     
       # def show

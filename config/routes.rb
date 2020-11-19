@@ -15,11 +15,13 @@ Rails.application.routes.draw do
       # paint関連
       resources :albums
       get :my_albums, to: "albums#myindex"
+      get :search_albums, to: "albums#search_albums"
       
       resources :pictures
       get :my_pictures, to: "pictures#myindex"
       get :album_pictures, to: "pictures#album_index"
       get :album_mypictures, to: "pictures#album_myindex"
+      get :search_pictures, to: "pictures#search_pictures"
       get :thumbnail, to: "albums#thumbnail"
     end
   end

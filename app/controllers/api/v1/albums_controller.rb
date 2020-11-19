@@ -6,7 +6,7 @@ module Api
       before_action :authenticate_user
     
       def index
-        @albums = Album.where(publish: true)
+        @albums = Album.where(publish: true).order(updated_at: :ASC)
         if @albums
           render 'index.json.jbuilder'
         else
@@ -15,7 +15,7 @@ module Api
       end
     
       def myindex
-        @albums = Album.where(user_id: current_user.id)
+        @albums = Album.where(user_id: current_user.id).order(updated_at: :ASC)
         if @albums
           render 'index.json.jbuilder'
         else
@@ -29,6 +29,15 @@ module Api
           render json: @picture.image_path
         else
           render json: { message: 'null' }
+        end
+      end
+
+      def search_albums
+        @albums = Album.search(params[:search])
+        if @albums
+          render 'index.json.jbuilder'
+        else
+          render json: { message: 'not found' }
         end
       end
     
