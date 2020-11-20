@@ -8,4 +8,5 @@ class Picture < ApplicationRecord
     return Picture.where(publish: true) unless search
     Picture.where(['title LIKE ?', "%#{search}%"]).where(publish: true)
   end
+
 end

@@ -23,6 +23,16 @@ Rails.application.routes.draw do
       get :album_mypictures, to: "pictures#album_myindex"
       get :search_pictures, to: "pictures#search_pictures"
       get :thumbnail, to: "albums#thumbnail"
+
+      # favorite picture
+      get :favo_confirm_picture, to: "favorite_pictures#favo_confirm"
+      post :favo_on_picture, to: "favorite_pictures#create"
+      delete :favo_off_picture, to: "favorite_pictures#destroy"
+
+      # favorite album
+      get :favo_confirm_album, to: "favorite_albums#favo_confirm"
+      post :favo_on_album, to: "favorite_albums#create"
+      delete :favo_off_album, to: "favorite_albums#destroy"
     end
   end
 end

@@ -1,7 +1,6 @@
 module Api
   module V1
     class PicturesController < ApplicationController
-      # before_action :current_user
       before_action :set_picture, only: [:show, :destroy, :update]
       before_action :authenticate_user
     
