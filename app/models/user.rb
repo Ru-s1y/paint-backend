@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :messages
   has_many :albums
   has_many :pictures
+  has_many :favopics
+  has_many :favoalbs
 
   before_save { self.email = email.downcase }
   validates :name, presence: true, length: { maximum: 15 }
