@@ -49,6 +49,9 @@ gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
 # front <=> back token auth
 gem 'jwt'
 
+# テスト用
+gem 'rspec-rails'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
