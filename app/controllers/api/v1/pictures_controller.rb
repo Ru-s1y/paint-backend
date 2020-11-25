@@ -7,15 +7,12 @@ module Api
       # ピクチャー一覧取得
       def index
         @pictures = Picture.where(publish: true).order(updated_at: :ASC)
-        # @pictures = Picture.all
-        # render json: @pictures
         render 'index.json.jbuilder'
       end
     
       # 自分のピクチャー取得
       def myindex
         @pictures = Picture.where(user_id: current_user.id).order(pagenumber: :ASC)
-        # render json: @pictures
         render 'index.json.jbuilder'
       end
     

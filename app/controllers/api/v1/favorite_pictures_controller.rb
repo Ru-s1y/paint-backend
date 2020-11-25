@@ -4,6 +4,11 @@ module Api
       before_action :authenticate_user
       before_action :set_favopic, only: [:favo_confirm, :destroy]
 
+      def index
+        @favopics = Favopic.where(user_id: current_user.id)
+        render 'index.json.jbuilder'
+      end
+
       def favo_confirm
         if @favopic.present?
           render json: { favorite: true }
@@ -32,7 +37,7 @@ module Api
 
       private
         def set_favopic
-          @favopic = Favolab.find_by(album_id: params[:album_id], user_id: current_user.id)
+          @favopic = Favopic.find_by(picture_id: params[:picture_id], user_id: current_user.id)
         end
     end
   end

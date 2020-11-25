@@ -4,6 +4,11 @@ module Api
       before_action :authenticate_user
       before_action :set_favoalb, only: [:favo_confirm, :destroy]
 
+      def index
+        @favoalb = Favoalb.where(user_id: current_user.id)
+        render 'index.json.jbuilder'
+      end
+
       def favo_confirm
         if @favoalb.present?
           render json: { favorite: true }
