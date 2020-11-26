@@ -11,7 +11,8 @@ module Api
 
       def favo_confirm
         if @favopic.present?
-          render json: { favorite: true }
+          @count = Favopic.where(picture_id: params[:picture_id]).count
+          render 'favo_confirm.json.jbuilder'
         else
           render json: { favorite: false }
         end
