@@ -10,6 +10,7 @@ Rails.application.routes.draw do
         post :login, to: "user_token#create"
         delete :logout, to: "user_token#destroy"
         post :guests, to: "guests#create"
+        # resources :users, only: [:destroy, :edit] # 実装は後
       end
     
       # paint関連
