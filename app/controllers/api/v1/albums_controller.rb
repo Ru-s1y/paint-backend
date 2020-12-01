@@ -5,6 +5,7 @@ module Api
       before_action :set_album, only: [:show, :destroy, :update]
       before_action :authenticate_user
     
+      # 公開アルバム一覧
       def index
         @albums = Album.where(publish: true).order(updated_at: :ASC)
         if @albums
@@ -14,6 +15,7 @@ module Api
         end
       end
     
+      # マイアルバム一覧
       def myindex
         @albums = Album.where(user_id: current_user.id).order(updated_at: :ASC)
         if @albums
@@ -23,6 +25,7 @@ module Api
         end
       end
 
+      # アルバムサムネイル取得
       def thumbnail
         @picture = Picture.find_by(album_id: params[:album_id])
         if @picture
@@ -32,6 +35,7 @@ module Api
         end
       end
 
+      # アルバム検索用
       def search_albums
         @albums = Album.search(params[:search])
         if @albums
@@ -41,10 +45,7 @@ module Api
         end
       end
     
-      # def show
-      #   reder json: @album
-      # end
-    
+      # アルバム作成
       def create
         @album = Album.create(
           title: params['album']['title'],
@@ -59,6 +60,7 @@ module Api
         end
       end
     
+      # アルバム削除
       def destroy
         @pictures = Picture.where(album_id: @album.id)
         if @pictures.present?
@@ -72,6 +74,7 @@ module Api
         }
       end
     
+      # アルバム編集
       def update
         if @album.update(album_params)
           render json: @album

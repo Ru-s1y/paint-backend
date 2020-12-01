@@ -4,31 +4,33 @@ module Api
       before_action :set_picture, only: [:show, :destroy, :update]
       before_action :authenticate_user
     
-      # ピクチャー一覧取得
+      # 公開ピクチャー一覧
       def index
         @pictures = Picture.where(publish: true).order(updated_at: :ASC)
         render 'index.json.jbuilder'
       end
     
-      # 自分のピクチャー取得
+      # マイピクチャー一覧
       def myindex
         @pictures = Picture.where(user_id: current_user.id).order(pagenumber: :ASC)
         render 'index.json.jbuilder'
       end
     
-      # 
+      # アルバムのピクチャー一覧
       def album_index
         @pictures = Picture.where(album_id: params[:album_id], publish: true).order(pagenumber: :ASC)
         # render json: @pictures
         render 'index.json.jbuilder'
       end
     
+      # マイアルバムのピクチャー一覧
       def album_myindex
         @pictures = Picture.where(album_id: params[:album_id]).order(pagenumber: :ASC)
         # render json: @pictures
         render 'index.json.jbuilder'
       end
 
+      # ピクチャー検索用
       def search_pictures
         @pictures = Picture.search(params[:search])
         if @pictures
@@ -38,10 +40,7 @@ module Api
         end
       end
     
-      # def show
-      #   render json: @picture
-      # end
-    
+      # ピクチャー作成
       def create
         image = params['picture']['image']
         uri = URI.parse(image)
@@ -68,11 +67,13 @@ module Api
         end
       end
     
+      # ピクチャー削除
       def destroy
         @picture.destroy
         render json: @picture
       end
     
+      # ピクチャー編集
       def update
         if @picture.update(picture_update_params)
           render json: @picture

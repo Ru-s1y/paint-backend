@@ -10,8 +10,12 @@ Rails.application.routes.draw do
         post :login, to: "user_token#create"
         delete :logout, to: "user_token#destroy"
         post :guests, to: "guests#create"
-        # resources :users, only: [:destroy, :edit] # 実装は後
+        resources :users, only: [:destroy, :update] # 実装は後
+        get :config, to: "users#config_user"
       end
+
+      # General
+      get :count_index, to: "generals#count_index"
     
       # paint関連
       resources :albums, only: [:index, :create, :update, :destroy]

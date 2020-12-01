@@ -21,4 +21,8 @@ class User < ApplicationRecord
   def my_json
     as_json(only: [:id, :name])
   end
+
+  def config_json
+    as_json(only: [:id, :name, :email])
+  end
 end
