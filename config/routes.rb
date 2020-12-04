@@ -15,6 +15,8 @@ Rails.application.routes.draw do
       end
 
       # General
+      get :home_index, to: "generals#index"
+      get :my_index, to: "generals#my_index"
       get :count_index, to: "generals#count_index"
     
       # paint関連
