@@ -9,9 +9,14 @@ default: &default
 development:
   <<: *default
   database: myapp_development
+
 test:
   <<: *default
   database: myapp_test
+
 production:
   <<: *default
-  database: myapp_production
+  # database: myapp_production
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
