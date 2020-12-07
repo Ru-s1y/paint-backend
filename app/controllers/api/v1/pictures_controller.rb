@@ -39,6 +39,15 @@ module Api
           render json: { message: 'not found' }
         end
       end
+
+      def search_mypictures
+        @pictures = Picture.mysearch(params[:search], current_user)
+        if @pictures
+          render 'index.json.jbuilder'
+        else
+          render json: { message: 'not found' }
+        end
+      end
     
       # ピクチャー作成
       def create

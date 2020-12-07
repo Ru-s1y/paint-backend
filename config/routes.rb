@@ -23,12 +23,14 @@ Rails.application.routes.draw do
       resources :albums, only: [:index, :create, :update, :destroy]
       get :my_albums, to: "albums#myindex"
       get :search_albums, to: "albums#search_albums"
+      get :search_myalbums, to: "albums#search_myalbums"
       
       resources :pictures, only: [:index, :create, :update, :destroy]
       get :my_pictures, to: "pictures#myindex"
       get :album_pictures, to: "pictures#album_index"
       get :album_mypictures, to: "pictures#album_myindex"
       get :search_pictures, to: "pictures#search_pictures"
+      get :search_mypictures, to: "pictures#search_mypictures"
       get :thumbnail, to: "albums#thumbnail"
 
       # favorite picture

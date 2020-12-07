@@ -11,4 +11,9 @@ class Album < ApplicationRecord
     return Album.where(publish: true) unless search
     Album.where(['title LIKE ?', "%#{search}%"]).where(publish: true)
   end
+
+  def self.mysearch(search, user)
+    return Album.where(user_id: user.id) unless search
+    Album.where(['title LIKE ?', "%#{search}%"]).where(user_id: user.id)
+  end
 end

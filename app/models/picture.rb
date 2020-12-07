@@ -9,4 +9,8 @@ class Picture < ApplicationRecord
     Picture.where(['title LIKE ?', "%#{search}%"]).where(publish: true)
   end
 
+  def self.mysearch(search, user)
+    return Picture.where(user_id: user.id) unless search
+    Picture.where(['title LIKE ?', "%#{search}%"]).where(user_id: user.id)
+  end
 end

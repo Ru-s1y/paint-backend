@@ -44,6 +44,15 @@ module Api
           render json: { message: 'not found' }
         end
       end
+
+      def search_myalbums
+        @albums = Album.mysearch(params[:search], current_user)
+        if @albums
+          render 'index.json.jbuilder'
+        else
+          render json: {message: 'not found'}
+        end
+      end
     
       # アルバム作成
       def create
