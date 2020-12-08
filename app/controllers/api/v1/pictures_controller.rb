@@ -12,7 +12,7 @@ module Api
     
       # マイピクチャー一覧
       def myindex
-        @pictures = Picture.where(user_id: current_user.id).order(pagenumber: :ASC)
+        @pictures = Picture.where(user_id: current_user.id).order(updated_at: :DESC)
         render 'index.json.jbuilder'
       end
     
@@ -132,7 +132,7 @@ module Api
             :secret_access_key => ENV['AWS_IAM_ACCESS_KEY']
           )
           bucket = s3.bucket("ru-s1y-pic-sv")
-          obj = bucket.object("uploader/#{current_user.name}/#{file_name}")
+          obj = bucket.object("uploader/#{current_user.id}/#{current_user.name}/#{file_name}")
           obj.put(acl: "public-read", body: data)
           obj.public_url
         end
