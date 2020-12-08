@@ -5,15 +5,15 @@ module Api
 
       # Home画面用の一覧表示(件数制限)
       def index
-        @albums = Album.where(publish: true).order(created_at: :DESC).limit(5)
-        @pictures = Picture.where(publish: true).order(created_at: :DESC).limit(5)
+        @albums = Album.where(publish: true).order(created_at: :DESC).limit(6)
+        @pictures = Picture.where(publish: true).order(created_at: :DESC).limit(6)
         render 'index.json.jbuilder'
       end
 
       # Mypage用の一覧表示(件数制限)
       def my_index
-        @albums = Album.where(user_id: current_user.id).order(created_at: :DESC).limit(5)
-        @pictures = Picture.where(user_id: current_user.id).order(created_at: :DESC).limit(5)
+        @albums = Album.where(user_id: current_user.id).order(created_at: :DESC).limit(6)
+        @pictures = Picture.where(user_id: current_user.id).order(created_at: :DESC).limit(6)
         render 'index.json.jbuilder'
       end
 

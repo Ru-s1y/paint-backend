@@ -8,12 +8,12 @@ class Album < ApplicationRecord
   end
 
   def self.search(search)
-    return Album.where(publish: true) unless search
-    Album.where(['title LIKE ?', "%#{search}%"]).where(publish: true)
+    return Album.where(publish: true).order(updated_at: :DESC) unless search
+    Album.where(['title LIKE ?', "%#{search}%"]).where(publish: true).order(updated_at: :DESC)
   end
 
   def self.mysearch(search, user)
-    return Album.where(user_id: user.id) unless search
-    Album.where(['title LIKE ?', "%#{search}%"]).where(user_id: user.id)
+    return Album.where(user_id: user.id).order(updated_at: :DESC) unless search
+    Album.where(['title LIKE ?', "%#{search}%"]).where(user_id: user.id).order(updated_at: :DESC)
   end
 end

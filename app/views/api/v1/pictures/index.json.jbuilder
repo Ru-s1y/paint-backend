@@ -1,5 +1,3 @@
-# json.array! @pictures, :id, :title, :description, :image_path
-
 json.array! @pictures do |picture|
   json.id picture.id
   json.title picture.title

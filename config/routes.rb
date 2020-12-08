@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       # paint関連
       resources :albums, only: [:index, :create, :update, :destroy]
       get :my_albums, to: "albums#myindex"
+      get :albumlist, to: "albums#album_list"
       get :search_albums, to: "albums#search_albums"
       get :search_myalbums, to: "albums#search_myalbums"
       

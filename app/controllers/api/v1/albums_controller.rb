@@ -1,15 +1,16 @@
 module Api
   module V1
     class AlbumsController < ApplicationController
-      # before_action :current_user
+      include Pagination
       before_action :set_album, only: [:show, :destroy, :update]
       before_action :authenticate_user
     
       # 公開アルバム一覧
       def index
-        @albums = Album.where(publish: true).order(updated_at: :ASC)
+        @albums = Album.where(publish: true).order(updated_at: :DESC).page(params[:page]).per(6)
+        pagenation = resources_with_pagination(@albums)
         if @albums
-          render 'index.json.jbuilder'
+          render 'paginate.json.jbuilder'
         else
           render json: @albums.error
         end
@@ -17,9 +18,20 @@ module Api
     
       # マイアルバム一覧
       def myindex
-        @albums = Album.where(user_id: current_user.id).order(updated_at: :ASC)
+        @albums = Album.where(user_id: current_user.id).order(updated_at: :DESC).page(params[:page]).per(6)
+        pagenation = resources_with_pagination(@albums)
         if @albums
-          render 'index.json.jbuilder'
+          render 'paginate.json.jbuilder'
+        else
+          render json: @albums.error
+        end
+      end
+
+      # アルバムリスト用
+      def album_list
+        @albums = Album.where(user_id: current_user.id).order(updated_at: :DESC)
+        if @albums
+          render 'albumlist.json.jbuilder'
         else
           render json: @albums.error
         end
@@ -45,6 +57,7 @@ module Api
         end
       end
 
+      # マイアルバム検索用
       def search_myalbums
         @albums = Album.mysearch(params[:search], current_user)
         if @albums
