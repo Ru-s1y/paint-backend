@@ -1,19 +1,22 @@
 module Api
   module V1
     class PicturesController < ApplicationController
+      include Pagination
       before_action :set_picture, only: [:show, :destroy, :update]
       before_action :authenticate_user
     
       # 公開ピクチャー一覧
       def index
-        @pictures = Picture.where(publish: true).order(updated_at: :ASC)
-        render 'index.json.jbuilder'
+        @pictures = Picture.where(publish: true).order(updated_at: :DESC).page(params[:page]).per(6)
+        pagenation = resources_with_pagination(@pictures)
+        render 'paginate.json.jbuilder'
       end
     
       # マイピクチャー一覧
       def myindex
-        @pictures = Picture.where(user_id: current_user.id).order(updated_at: :DESC)
-        render 'index.json.jbuilder'
+        @pictures = Picture.where(user_id: current_user.id).order(updated_at: :DESC).page(params[:page]).per(6)
+        pagenation = resources_with_pagination(@pictures)
+        render 'paginate.json.jbuilder'
       end
     
       # アルバムのピクチャー一覧
@@ -32,7 +35,7 @@ module Api
 
       # ピクチャー検索用
       def search_pictures
-        @pictures = Picture.search(params[:search])
+        @pictures = Picture.search(params[:search]).limit(20)
         if @pictures
           render 'index.json.jbuilder'
         else
@@ -40,8 +43,9 @@ module Api
         end
       end
 
+      # マイピクチャー検索用
       def search_mypictures
-        @pictures = Picture.mysearch(params[:search], current_user)
+        @pictures = Picture.mysearch(params[:search], current_user).limit(20)
         if @pictures
           render 'index.json.jbuilder'
         else

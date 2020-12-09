@@ -5,12 +5,12 @@ class Picture < ApplicationRecord
 
   # mount_uploader :image, ImageUploader
   def self.search(search)
-    return Picture.where(publish: true) unless search
-    Picture.where(['title LIKE ?', "%#{search}%"]).where(publish: true)
+    return Picture.where(publish: true).order(updated_at: :DESC) unless search
+    Picture.where(['title LIKE ?', "%#{search}%"]).where(publish: true).order(updated_at: :DESC)
   end
 
   def self.mysearch(search, user)
-    return Picture.where(user_id: user.id) unless search
-    Picture.where(['title LIKE ?', "%#{search}%"]).where(user_id: user.id)
+    return Picture.where(user_id: user.id).order(updated_at: :DESC) unless search
+    Picture.where(['title LIKE ?', "%#{search}%"]).where(user_id: user.id).order(updated_at: :DESC)
   end
 end
