@@ -35,7 +35,7 @@ module Api
 
       # ピクチャー検索用
       def search_pictures
-        @pictures = Picture.search(params[:search])
+        @pictures = Picture.search(params[:search]).limit(20)
         if @pictures
           render 'index.json.jbuilder'
         else
@@ -43,8 +43,9 @@ module Api
         end
       end
 
+      # マイピクチャー検索用
       def search_mypictures
-        @pictures = Picture.mysearch(params[:search], current_user)
+        @pictures = Picture.mysearch(params[:search], current_user).limit(20)
         if @pictures
           render 'index.json.jbuilder'
         else

@@ -1,11 +1,13 @@
 module Api
   module V1
     class FavoritePicturesController < ApplicationController
+      include Pagination
       before_action :authenticate_user
       before_action :set_favopic, only: [:favo_confirm, :destroy]
 
       def index
-        @favopics = Favopic.where(user_id: current_user.id)
+        @favopics = Favopic.where(user_id: current_user.id).page(params[:page]).per(6)
+        pagenation = resources_with_pagination(@favopics)
         render 'index.json.jbuilder'
       end
 

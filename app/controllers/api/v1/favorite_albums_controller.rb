@@ -1,11 +1,13 @@
 module Api
   module V1
     class FavoriteAlbumsController < ApplicationController
+      include Pagination
       before_action :authenticate_user
       before_action :set_favoalb, only: [:favo_confirm, :destroy]
 
       def index
-        @favoalb = Favoalb.where(user_id: current_user.id)
+        @favoalbs = Favoalb.where(user_id: current_user.id).page(params[:page]).per(6)
+        pagenation = resources_with_pagination(@favoalbs)
         render 'index.json.jbuilder'
       end
 

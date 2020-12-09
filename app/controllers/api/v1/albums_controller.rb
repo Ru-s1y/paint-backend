@@ -49,7 +49,7 @@ module Api
 
       # アルバム検索用
       def search_albums
-        @albums = Album.search(params[:search])
+        @albums = Album.search(params[:search]).limit(20)
         if @albums
           render 'index.json.jbuilder'
         else
@@ -59,7 +59,7 @@ module Api
 
       # マイアルバム検索用
       def search_myalbums
-        @albums = Album.mysearch(params[:search], current_user)
+        @albums = Album.mysearch(params[:search], current_user).limit(20)
         if @albums
           render 'index.json.jbuilder'
         else
