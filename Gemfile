@@ -43,8 +43,6 @@ gem 'carrierwave'
 gem 'rmagick'
 gem 'fog-aws'
 
-# 環境編集使うgem
-gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
 
 # front <=> back token auth
 gem 'jwt'
@@ -58,6 +56,8 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # テスト用
   gem 'rspec-rails'
+  # 環境編集使うgem
+  gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
 end
 
 group :development do
