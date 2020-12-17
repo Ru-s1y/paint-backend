@@ -7,14 +7,14 @@ module Api
     
       # 公開ピクチャー一覧
       def index
-        @pictures = Picture.where(publish: true).order(updated_at: :DESC).page(params[:page]).per(6)
+        @pictures = Picture.where(publish: true).order(created_at: :DESC).page(params[:page]).per(6)
         pagenation = resources_with_pagination(@pictures)
         render 'paginate.json.jbuilder'
       end
     
       # マイピクチャー一覧
       def myindex
-        @pictures = Picture.where(user_id: current_user.id).order(updated_at: :DESC).page(params[:page]).per(6)
+        @pictures = Picture.where(user_id: current_user.id).order(created_at: :DESC).page(params[:page]).per(6)
         pagenation = resources_with_pagination(@pictures)
         render 'paginate.json.jbuilder'
       end

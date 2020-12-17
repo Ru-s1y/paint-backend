@@ -5,12 +5,14 @@ module Api
       before_action :authenticate_user
       before_action :set_favopic, only: [:favo_confirm, :destroy]
 
+      # お気に入り一覧
       def index
         @favopics = Favopic.where(user_id: current_user.id).page(params[:page]).per(6)
         pagenation = resources_with_pagination(@favopics)
         render 'index.json.jbuilder'
       end
 
+      # お気に入り数
       def favo_confirm
         if @favopic.present?
           @count = Favopic.where(picture_id: params[:picture_id]).count
